@@ -1,0 +1,32 @@
+<section style="display:flex; justify-content: center; align-items: center; flex-direction: column;">
+  <header header style="font-size:20px; margin-bottom:50px; padding: 5px;">
+    <p>API : https://bank.gov.ua/ua/open-data/api-dev</p>
+    <p>usd :{{usd}}</p>
+    <p> eur :{{eur}}</p>
+  </header>
+
+
+  <div>
+    <input (input)="changePrice('second')" type="number" [value]="firstInputValue" min=0 name="first"
+      [(ngModel)]="firstInputValue" style="margin-right:20px; padding: 5px;">
+    <label for="first">
+      <select [(ngModel)]="firstSelectValue" (change)="changePrice('second')" style="padding: 5px;">
+        <option *ngFor="let opt of data">{{opt.cc}}</option>
+      </select>
+    </label>
+  </div>
+
+  <br>
+  <br>
+  <br>
+
+  <div>
+    <input (input)="changePrice('first')" type="number" min=0 [value]="secondInputValue" name="second"
+      [(ngModel)]="secondInputValue" style="margin-right:20px ; padding: 5px;">
+    <label for="first">
+      <select [(ngModel)]="secondSelectValue" (change)="changePrice('first')" style="padding: 5px;">
+        <option *ngFor="let opt of data">{{opt.cc}}</option>
+      </select>
+    </label>
+  </div>
+</section>
