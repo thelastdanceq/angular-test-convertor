@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 
+interface Currency {
+  r030: string,
+  txt: string,
+  rate: number,
+  cc: string,
+  exchangedate: string
+}
 
-// cc: "CAD"
-// exchangedate: "23.05.2022"
-// r030: 124
-// rate: 22.8724
-// txt: "Канадський долар"
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -31,7 +33,7 @@ export class AppComponent {
   eur: number | null = null;
   usd: number | null = null;
 
-  data: any = [];
+  data: Array<Currency> = [];
 
 
   changePrice(inputName: "first" | "second") {
@@ -58,7 +60,9 @@ export class AppComponent {
   ngOnInit() {
     this.http.get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json')
       .subscribe(data => {
-        this.data = data;
+        if (Array.isArray(data)) {
+          this.data = data;
+        }
 
 
         this.usd = this.data.filter((el: any) => {
@@ -77,7 +81,7 @@ export class AppComponent {
         this.data.push({
           cc: "UAH",
           exchangedate: "23.05.2022",
-          r030: 1,
+          r030: '1',
           rate: 1,
           txt: "Українська гривня",
         })

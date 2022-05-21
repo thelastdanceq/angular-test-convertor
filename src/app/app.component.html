@@ -24,7 +24,7 @@
     <input (input)="changePrice('first')" type="number" min=0 [value]="secondInputValue" name="second"
       [(ngModel)]="secondInputValue" style="margin-right:20px ; padding: 5px;">
     <label for="first">
-      <select [(ngModel)]="secondSelectValue" (change)="changePrice('first')" style="padding: 5px;">
+      <select [(ngModel)]="secondSelectValue" (change)="changePrice('second')" style="padding: 5px;">
         <option *ngFor="let opt of data">{{opt.cc}}</option>
       </select>
     </label>
