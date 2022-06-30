@@ -22,8 +22,6 @@ export class AppComponent {
 
   }
 
-  title: string = 'bomba';
-
   firstInputValue: number = 1;
   secondInputValue: number = 1;
 
@@ -37,22 +35,24 @@ export class AppComponent {
 
 
   changePrice(inputName: "first" | "second") {
-    if (inputName === "first") {
-      this.firstInputValue = this.secondInputValue * (this.data.filter((el: any) => {
-        return el.cc === this.secondSelectValue;
-      })[0].rate / this.data.filter((el: any) => {
-        return el.cc === this.firstSelectValue;
+    const getMultiplier = (firstValue: string, secondValue: string) => {
+      const firstRate = this.data.filter((el: any) => {
+        return el.cc === firstValue;
+      })[0].rate;
+      const secondRate = this.data.filter((el: any) => {
+        return el.cc === secondValue;
       })[0].rate
-      )
-    } else {
-      this.secondInputValue = this.firstInputValue * (this.data.filter((el: any) => {
-        return el.cc === this.firstSelectValue;
-      })[0].rate / this.data.filter((el: any) => {
-        return el.cc === this.secondSelectValue;
-      })[0].rate
-      )
+
+      return firstRate / secondRate
     }
 
+    if (this.secondSelectValue && this.firstSelectValue) {
+      if (inputName === "first") {
+        this.firstInputValue = this.secondInputValue * getMultiplier(this.secondSelectValue, this.firstSelectValue)
+      } else {
+        this.secondInputValue = this.firstInputValue * getMultiplier(this.firstSelectValue, this.secondSelectValue)
+      }
+    }
   }
 
 
